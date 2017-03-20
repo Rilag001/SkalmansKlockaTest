@@ -67,7 +67,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final AlarmAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final AlarmAdapter.MyViewHolder holder, int position) {
         final AlarmModel alarmModel = alarmModelList.get(position);
 
         // isAlarmOn
@@ -175,7 +175,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.MyViewHolder
                                 alarmManager.cancel(pendingIntent);
 
                                 // remove model
-                                alarmModelList.remove(position);
+                                alarmModelList.remove(alarmModel);
                                 AlarmAdapter.this.notifyDataSetChanged();
 
                                 // save updated list to sharedPref

@@ -29,8 +29,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -53,8 +53,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="24sp"
                     android:textColor="@color/colorSecondaryText"
-                    android:layout_marginRight="8dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
                     android:id="@+id/title"/>
 
             </LinearLayout>
@@ -73,6 +73,7 @@
         <ImageView
             android:id="@+id/delete_image"
             android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:src="@android:drawable/ic_delete"
             android:tint="@color/colorSecondaryText"
             android:layout_width="wrap_content"

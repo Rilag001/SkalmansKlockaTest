@@ -27,5 +27,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         showAlarmActivityMobile.putExtra("alarmModel", alarmModelJson);
         showAlarmActivityMobile.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(showAlarmActivityMobile);
+
+        wl.release();
     }
 }
