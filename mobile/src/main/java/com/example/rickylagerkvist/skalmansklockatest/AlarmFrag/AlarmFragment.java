@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +30,10 @@ import butterknife.ButterKnife;
  */
 public class AlarmFragment extends Fragment {
 
-    @BindView(R.id.alarm_recyclerview) RecyclerView mAlarmRecyclerView;
+    @BindView(R.id.alarm_recycler_view) RecyclerView mAlarmRecyclerView;
     @BindView(R.id.add_alarm_fab) FloatingActionButton addAlarmFab;
     private AlarmAdapter mAlarmAdapter;
-    private List<AlarmModel> alarmModelList;
+    private List<AlarmModel> alarmModelList = new ArrayList<>();
 
     public AlarmFragment() {
         // Required empty public constructor
@@ -50,7 +51,6 @@ public class AlarmFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_alarm, container, false);
         ButterKnife.bind(this, rootView);
         // set up model
-        alarmModelList = new ArrayList<>();
         GetAlarmsFromSharedPref();
 
         // RecyclerView
@@ -75,7 +75,6 @@ public class AlarmFragment extends Fragment {
                 if (dy > 0 || dy<0 && addAlarmFab.isShown()){
                     addAlarmFab.hide();
                 }
-
             }
 
             @Override
@@ -120,5 +119,4 @@ public class AlarmFragment extends Fragment {
             }
         }
     }
-
 }
