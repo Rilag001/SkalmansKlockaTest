@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SkalmansKlockaTest</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="klocka">Klocka</string>
+    <string name="bilder">Bilder</string>
+    <string name="alarm_dialog_title_hint">Gå och lägg dig, lunch, vakna…</string>
+    <string name="update_alarm">Updatera alarm</string>
+</resources>
