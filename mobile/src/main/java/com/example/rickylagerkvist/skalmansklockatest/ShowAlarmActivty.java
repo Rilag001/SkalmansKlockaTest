@@ -53,8 +53,6 @@ public class ShowAlarmActivty extends AppCompatActivity {
 
         startVibrator();
 
-        //setUpNewAlarmIn24Hours();
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,29 +162,5 @@ public class ShowAlarmActivty extends AppCompatActivity {
         // repeat indefinitely
         mVibrator.vibrate(pattern, 0);
     }
-
-
-//    private void setUpNewAlarmIn24Hours() {
-//
-//        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-//
-//        Intent intent = new Intent(this, AlarmReceiver.class);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, alarmModel.getIntentNr(), intent, 0);
-//
-//        // set new alarm for next day, same time
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.add(Calendar.DAY_OF_YEAR, 1);
-//        calendar.set(Calendar.HOUR_OF_DAY, alarmModel.getCalendarHour());
-//        calendar.set(Calendar.MINUTE, alarmModel.getCalendarMin());
-//
-//        // set alarm as exact as possible based on build ver
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-//            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-//        } else {
-//            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-//        }
-//    }
 
 }
