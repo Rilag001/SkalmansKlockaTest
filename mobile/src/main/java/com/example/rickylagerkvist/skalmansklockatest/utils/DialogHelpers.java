@@ -26,6 +26,7 @@ import com.example.rickylagerkvist.skalmansklockatest.models.enums.AlarmType;
 import com.google.gson.Gson;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -173,29 +174,32 @@ public class DialogHelpers {
             private void setAlarm(AlarmModel model) {
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
                 Intent intent = new Intent(context, AlarmReceiver.class);
                 Gson gson = new Gson();
-                Calendar calendar = Calendar.getInstance();
-                int currentHour = calendar.get(Calendar.HOUR);
-                int currentMin = calendar.get(Calendar.MINUTE);
-
                 // put model as String extra
                 String AlarmModelJson = gson.toJson(model);
                 intent.putExtra("alarmModel", AlarmModelJson);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, model.getIntentNr(), intent, 0);
+                Date date = new Date();
+                Calendar calAlarm = Calendar.getInstance();
+                Calendar calNow = Calendar.getInstance();
 
-                // selected time is before current time
-                if(currentHour > model.getCalendarHour() || currentMin > model.getCalendarMin()){
-                    calendar.add(Calendar.DATE, 1);
-                    calendar.set(Calendar.HOUR_OF_DAY, model.getCalendarHour());
-                    calendar.set(Calendar.MINUTE, model.getCalendarMin());
-                } else {
-                    calendar.set(Calendar.HOUR_OF_DAY, model.getCalendarHour());
-                    calendar.set(Calendar.MINUTE, model.getCalendarMin());
+                calAlarm.setTime(date);
+                calNow.setTime(date);
+
+                calAlarm.set(Calendar.HOUR_OF_DAY, model.getCalendarHour());
+                calAlarm.set(Calendar.MINUTE, model.getCalendarMin());
+                calAlarm.set(Calendar.SECOND, 0);
+
+                // if alarm is before this time, set alarm to sam time next day
+                if(calAlarm.before(calNow)){
+                    calAlarm.add(Calendar.DATE, 1);
                 }
 
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, model.getIntentNr(), intent, 0);
+
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calAlarm.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
             }
         });
 

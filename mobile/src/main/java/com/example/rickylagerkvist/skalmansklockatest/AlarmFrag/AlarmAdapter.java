@@ -23,6 +23,7 @@ import com.github.zagum.switchicon.SwitchIconView;
 import com.google.gson.Gson;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -94,14 +95,25 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.MyViewHolder
                     alarmModel.setAlarmOn(true);
 
                     // add alarm
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, alarmModel.getCalendarHour());
-                    calendar.set(Calendar.MINUTE, alarmModel.getCalendarMin());
+                    Date date = new Date();
+                    Calendar calAlarm = Calendar.getInstance();
+                    Calendar calNow = Calendar.getInstance();
+
+                    calAlarm.setTime(date);
+                    calNow.setTime(date);
+
+                    calAlarm.set(Calendar.HOUR_OF_DAY, alarmModel.getCalendarHour());
+                    calAlarm.set(Calendar.MINUTE, alarmModel.getCalendarMin());
+                    calAlarm.set(Calendar.SECOND, 0);
+
+                    if(calAlarm.before(calNow)){
+                        calAlarm.add(Calendar.DATE, 1);
+                    }
 
                     Intent intent = new Intent(context, AlarmReceiver.class);
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarmModel.getIntentNr(), intent, 0);
 
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calAlarm.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
 //                    // set alarm as exact as possible based on build ver
 //                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
